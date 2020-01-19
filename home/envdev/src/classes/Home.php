@@ -8,6 +8,7 @@ class Home
     private $tools    = [];
     private $projects = [];
     private $vhosts   = [];
+    private $version;
 
     /**
      * Constructor
@@ -18,6 +19,7 @@ class Home
         $this->host = $this->http_host[0];
         $this->port = (isset($this->http_host[1])) ? $this->http_host[1] : 80;
 
+        $this->setVersion();
         $this->setTools();
         $this->loadVHosts();
         $this->setProjects();
@@ -47,6 +49,30 @@ class Home
     }
 
     /**
+     * Set envdev version
+     *
+     * @return self
+     */
+    private function setVersion()
+    {
+        if (file_exists('/var/www/html/envdev/version')) {
+            $this->version = file_get_contents('/var/www/html/envdev/version');
+        }
+        return $this;
+    }
+
+    /**
+     * Get envdev version
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     *
      * Add Tool item
      *
      * @param string $name

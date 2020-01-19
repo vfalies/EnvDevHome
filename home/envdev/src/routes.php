@@ -12,7 +12,8 @@ $app->get('/', function ($request, $response, $args) {
             'tools'    => $Home->getTools(),
             'projects' => $Home->getProjects(),
             'vhosts'   => $Home->getVHosts(),
-            'servers'  => $Server->getInformations()
+            'servers'  => $Server->getInformations(),
+            'version'  => $Home->getVersion()
             ]
         );
 });
