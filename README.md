@@ -1,6 +1,6 @@
 # EnvDevHome
 
-EnvDevHome is a home admin containerfor [EnvDev project](https://vfac.fr/projects/envdev).
+EnvDevHome is a home admin container for [EnvDev project](https://vfac.fr/projects/envdev).
 The utlisation outside this project is naturally possible.
 
 ## Usage
