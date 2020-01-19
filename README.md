@@ -28,4 +28,4 @@ services:
 
 ## Screenshot
 
-![Screenshot](./doc/EnvDevHome.png)
+![Screenshot](https://github.com/vfalies/EnvDevHome/blob/master/doc/EnvDevHome.png)
