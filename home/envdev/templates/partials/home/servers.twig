@@ -13,13 +13,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% if servers.webserver is not null %}
                         <tr role="row">
                             <td>Web</td>
                             <td>{{ servers.webserver|capitalize }}</td>
                             <td>{{ servers.webserver_version }}</td>
                             <td>{{ servers.webserver_ip }}</td>
                         </tr>
-                        {% if servers.php is not null %}
+                        {% endif %}
+                        {% if servers.php_ip is not null %}
                         <tr role="row">
                             <td>PHP</td>
                             <td>PHP</td>
