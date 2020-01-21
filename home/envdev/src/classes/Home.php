@@ -37,8 +37,10 @@ class Home
         if (getenv('DB_SERVER')) {
             $this->addTool('Database Admin', getenv('DBADMIN_PORT'), 'fa-list');
         }
-        $this->addTool('MailDev', getenv('MAILDEV_PORT'), 'fa-envelope');
-        if (getenv('PHP_VERSION')) {
+        if (getenv('MAILDEV_PORT')) {
+            $this->addTool('MailDev', getenv('MAILDEV_PORT'), 'fa-envelope');
+        }
+        if (getenv('PHP_VERSION') && getenv('PHP_STATIC_IP')) {
             $this->addTool('PhpInfo', $this->port, 'fa-info-circle', '/phpinfo');
         }
         if (getenv('QUEUER_SERVER')) {
@@ -154,19 +156,21 @@ class Home
     private function getProjectHostname($directory)
     {
         $webserver = getenv('WEB_SERVER');
-        foreach ($this->vhosts[$webserver] as $vhostfile) {
-            switch ($webserver) {
-                case 'nginx':
-                    $hostname = $this->readNGinxVHOst(file('/envdevconf/nginx/vhosts/' . $vhostfile->name), $directory);
-                    break;
-                case 'apache':
-                    $hostname = $this->readApacheVHOst(file('/envdevconf/apache/vhosts/' . $vhostfile->name), $directory);
-                    break;
-                default:
-                    throw new Exception('Unknown WebServer : ' . $webserver);
-            }
-            if (!is_null($hostname)) {
-                return $hostname;
+        if (isset($this->vhosts[$webserver]) && is_array($this->vhosts[$webserver])) {
+            foreach ($this->vhosts[$webserver] as $vhostfile) {
+                switch ($webserver) {
+                    case 'nginx':
+                        $hostname = $this->readNGinxVHOst(file('/envdevconf/nginx/vhosts/' . $vhostfile->name), $directory);
+                        break;
+                    case 'apache':
+                        $hostname = $this->readApacheVHOst(file('/envdevconf/apache/vhosts/' . $vhostfile->name), $directory);
+                        break;
+                    default:
+                        throw new Exception('Unknown WebServer : ' . $webserver);
+                }
+                if (!is_null($hostname)) {
+                    return $hostname;
+                }
             }
         }
         return null;
