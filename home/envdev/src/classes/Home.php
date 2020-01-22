@@ -41,7 +41,7 @@ class Home
             $this->addTool('MailDev', getenv('MAILDEV_PORT'), 'fa-envelope');
         }
         if (getenv('PHP_VERSION') && getenv('PHP_STATIC_IP')) {
-            $this->addTool('PhpInfo', $this->port, 'fa-info-circle', 'http://phpinfo.localhost/index.php');
+            $this->addTool('PhpInfo', $this->port, 'fa-info-circle', 'http://phpinfo.localhost');
         }
         if (getenv('QUEUER_SERVER')) {
             $this->addTool('Queuer', getenv('QUEUER_PORT'), 'fa-align-justify');
