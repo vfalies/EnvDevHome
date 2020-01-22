@@ -13,7 +13,8 @@ $app->get('/', function ($request, $response, $args) {
             'projects' => $Home->getProjects(),
             'vhosts'   => $Home->getVHosts(),
             'servers'  => $Server->getInformations(),
-            'version'  => $Home->getVersion()
+            'version'  => $Home->getVersion(),
+            'profiles' => $Home->getProfiles()
             ]
         );
 });

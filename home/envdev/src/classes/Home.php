@@ -7,6 +7,7 @@ class Home
     private $port;
     private $tools    = [];
     private $projects = [];
+    private $profiles = [];
     private $vhosts   = [];
     private $version;
 
@@ -23,6 +24,7 @@ class Home
         $this->setTools();
         $this->loadVHosts();
         $this->setProjects();
+        $this->setProfiles();
         $this->readComposer();
     }
 
@@ -124,6 +126,42 @@ class Home
             $project->hostname  = $this->getProjectHostname($directory);
 
             array_push($this->projects, $project);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set profiles from disk
+     *
+     * @return void
+     */
+    private function setProfiles()
+    {
+        $profiles_path = '/var/www/html/profiles';
+        $files = glob($profiles_path.'/*');
+
+        // Read default file
+        $content_default = '';
+        if (file_exists($profiles_path.'/default.env'))
+        {
+            $content_default = file_get_contents($profiles_path.'/default.env');
+        }
+
+        foreach ($files as $file) {
+            $profile = new stdClass();
+            $profile->name = basename($file, '.env');
+            if ($profile->name == 'default') {
+                continue;
+            }
+            $profile->default = false;
+            if (strpos($content_default, 'PROFILE_NAME='.$profile->name) !== false) {
+                $profile->default = true;
+            }
+
+            $profile->current = (getenv('PROFILE_NAME') == $profile->name) ? true: false;
+
+            array_push($this->profiles, $profile);
         }
 
         return $this;
@@ -260,6 +298,16 @@ class Home
     public function getProjects()
     {
         return $this->projects;
+    }
+
+    /**
+     * Get profiles list array
+     *
+     * @return array
+     */
+    public function getProfiles()
+    {
+        return $this->profiles;
     }
 
     /**
