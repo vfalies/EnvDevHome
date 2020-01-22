@@ -14,6 +14,7 @@ class Server
 
     public function getInformations()
     {
+        $this->informations->profile_name      = getenv('PROFILE_NAME')      !== false ? getenv('PROFILE_NAME')     : null;
         $this->informations->projects_path     = getenv('PROJECTS_PATH')     !== false ? getenv('PROJECTS_PATH')    : null;
         $this->informations->php               = getenv('PHP_VERSION')       !== false ? getenv('PHP_VERSION')      : null;
         $this->informations->php_ip            = getenv('PHP_STATIC_IP')     !== false ? getenv('PHP_STATIC_IP')    : null;
