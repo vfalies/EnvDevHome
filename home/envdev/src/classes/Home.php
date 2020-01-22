@@ -41,7 +41,7 @@ class Home
             $this->addTool('MailDev', getenv('MAILDEV_PORT'), 'fa-envelope');
         }
         if (getenv('PHP_VERSION') && getenv('PHP_STATIC_IP')) {
-            $this->addTool('PhpInfo', $this->port, 'fa-info-circle', '/phpinfo');
+            $this->addTool('PhpInfo', $this->port, 'fa-info-circle', 'http://phpinfo.localhost/index.php');
         }
         if (getenv('QUEUER_SERVER')) {
             $this->addTool('Queuer', getenv('QUEUER_PORT'), 'fa-align-justify');
@@ -87,9 +87,16 @@ class Home
     {
         $tool       = new stdClass;
         $tool->name = $name;
-        $tool->port = $port;
         $tool->icon = $icon;
-        $tool->url  = 'http://' . $this->host . ':' . $port . $path;
+        if (strpos($path, 'http') !== false)
+        {
+            $tool->port = '';
+            $tool->url  = $path;
+        } else {
+            $tool->port = $port;
+            $tool->icon = $icon;
+            $tool->url  = 'http://' . $this->host . ':' . $port . $path;
+        }
 
         array_push($this->tools, $tool);
 
