@@ -236,7 +236,8 @@ class Home
             if (strstr($line, 'server_name') !== false) {
                 $server_name = str_replace('server_name', '', $line);
                 $server_name = str_replace(';', '', $server_name);
-                $server_name = trim($server_name);
+                $server_name = explode(' ', trim($server_name));
+                $server_name = $server_name[0];
             }
         }
         if (!is_null($server_name)) {
@@ -327,8 +328,9 @@ class Home
 
         $this->vhosts['apache'] = [];
         foreach ($directories as $directory) {
-            $vhost       = new stdClass();
-            $vhost->name = (array_reverse(explode('/', $directory)))[0];
+            $vhost           = new stdClass();
+            $vhost->name     = (array_reverse(explode('/', $directory)))[0];
+            $vhost->hostname = $this->getProjectHostname($vhost->name);
 
             array_push($this->vhosts['apache'], $vhost);
         }
@@ -338,8 +340,9 @@ class Home
 
         $this->vhosts['nginx'] = [];
         foreach ($directories as $directory) {
-            $vhost       = new stdClass();
-            $vhost->name = (array_reverse(explode('/', $directory)))[0];
+            $vhost           = new stdClass();
+            $vhost->name     = (array_reverse(explode('/', $directory)))[0];
+            $vhost->hostname = $this->getProjectHostname($vhost->name);
 
             array_push($this->vhosts['nginx'], $vhost);
         }
