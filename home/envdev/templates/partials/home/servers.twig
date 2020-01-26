@@ -10,6 +10,7 @@
                             <th>Name</th>
                             <th>Version</th>
                             <th>Ip</th>
+                            <th class="text-center">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,22 +20,25 @@
                             <td>{{ servers.webserver|capitalize }}</td>
                             <td>{{ servers.webserver_version }}</td>
                             <td>{{ servers.webserver_ip }}</td>
+                            <td class="text-center">{{ (servers.webserver_status) ? '<i class="far fa-check fa-2" style="color: green"></i>' : '<i class="fas fa-times" style="color: red"></i>' }}</td>
                         </tr>
                         {% endif %}
-                        {% if servers.php_ip is not null %}
+                        {% if servers.language_server == 'php' %}
                         <tr role="row">
                             <td>PHP</td>
                             <td>PHP</td>
                             <td>{{ servers.php }}</td>
                             <td>{{ servers.php_ip }}</td>
+                            <td class="text-center">{{ (servers.php_status) ? '<i class="far fa-check fa-2" style="color: green"></i>' : '<i class="fas fa-times" style="color: red"></i>' }}</td>
                         </tr>
                         {% endif %}
-                        {% if servers.node is not null %}
+                        {% if servers.language_server == 'node' %}
                         <tr role="row">
                             <td>Node</td>
                             <td>Node</td>
                             <td>{{ servers.node }}</td>
                             <td>{{ servers.node_ip }}</td>
+                            <td class="text-center">{{ (servers.node_status) ? '<i class="far fa-check fa-2" style="color: green"></i>' : '<i class="fas fa-times" style="color: red"></i>' }}</td>
                         </tr>
                         {% endif %}
                         {% if servers.cache is not null %}
@@ -43,6 +47,7 @@
                             <td>{{ servers.cache|capitalize }}</td>
                             <td>{{ servers.cache_version }}</td>
                             <td>{{ servers.cache_ip }}</td>
+                            <td class="text-center">{{ (servers.cache_status) ? '<i class="far fa-check fa-2" style="color: green"></i>' : '<i class="fas fa-times" style="color: red"></i>' }}</td>
                         </tr>
                         {% endif %}
                         {% if servers.queuer is not null %}
@@ -51,6 +56,7 @@
                             <td>{{ servers.queuer|capitalize }}</td>
                             <td></td>
                             <td>{{ servers.queuer_ip }}</td>
+                            <td class="text-center">{{ (servers.queuer_status) ? '<i class="far fa-check fa-2" style="color: green"></i>' : '<i class="fas fa-times" style="color: red"></i>' }}</td>
                         </tr>
                         {% endif %}
                         {% if servers.db is not null %}
@@ -59,6 +65,7 @@
                             <td>{{ servers.db|capitalize }}</td>
                             <td>{{ servers.db_version }}</td>
                             <td>{{ servers.db_ip }}</td>
+                            <td class="text-center">{{ (servers.db_status) ? '<i class="far fa-check fa-2" style="color: green"></i>' : '<i class="fas fa-times" style="color: red"></i>' }}</td>
                         </tr>
                         {% endif %}
                     </tbody>
