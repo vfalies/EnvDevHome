@@ -4,7 +4,8 @@ LABEL maintainer="Vincent Faliès <vincent@vfac.fr>"
 RUN apt-get update && apt-get install -y \
     wget \
     git \
-    zip
+    zip \
+    iputils-ping
 RUN apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 

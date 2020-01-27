@@ -73,10 +73,13 @@ class Server
         if (is_null($ip)) {
             return false;
         }
-        $ping = exec('ping -c1 -w2 '.$ip.' |grep transmitted |grep transmitted |cut -f3 -d"," |cut -f1 -d"%"');
-        if ($ping ==0) {
+        $cmd = 'ping -c1 '.$ip;
+        exec($cmd, $output, $ping);
+
+        if (isset($output[4]) && strstr($output[4], ', 0% packet loss') !== false) {
             return true;
         }
         return false;
+
     }
 }
