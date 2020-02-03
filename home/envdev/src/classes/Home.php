@@ -48,6 +48,9 @@ class Home
         if (getenv('QUEUER_SERVER')) {
             $this->addTool('Queuer', getenv('QUEUER_PORT'), 'fa-align-justify');
         }
+        if (getenv('CACHE_SERVER') && getenv('CACHE_SERVER') == 'redis') {
+            $this->addTool('Redis admin', getenv('CACHEADMIN_PORT'), 'fa-users-cog');
+        }
 
         return $this;
     }
